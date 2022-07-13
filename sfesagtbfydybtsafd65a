@@ -168,7 +168,6 @@ if Value == true then
     ---Settings for on
     getgenv().Size = Vector3.new(5,5,5)
     getgenv().QTransparencyzx = .7
-    getgenv().QColourzx = 255,255,255
     else
         if Value == false then
         ---Settings for off
