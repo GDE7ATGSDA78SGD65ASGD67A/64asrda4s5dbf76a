@@ -137,6 +137,36 @@ FOV_Circle.Filled = false
 local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))()
 
 local MainUI = UILibrary.Load("ShushHUB")
+local FirstPage = MainUI.AddPage("GodMode")
+local FirstLabel = FirstPage.AddLabel("GodMode/Invis")
+local FirstButton = FirstPage.AddButton("GOD", function()
+spawn(function()
+    while wait(1) do
+        pcall(function()
+            if game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.SpectateBar.ButtonBar.GhostB.Visible == true then
+                wait(.5)
+                for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.SpectateBar.ButtonBar.GhostB.MouseButton1Click)) do
+                    v:Fire()
+                end
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait(.5) do
+        pcall(function()
+            for _,v in pairs(game:GetService("Workspace").GhostCoins:GetDescendants()) do
+                if v:IsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Parent, 0) --0 is touch
+                    wait(.5)
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Parent, 1) -- 1 is untouch
+                end
+            end
+        end)
+    end
+end)
+end)
 local FirstPage = MainUI.AddPage("Silent aim")
 local FirstLabel = FirstPage.AddLabel("Super silent aim")
 local FirstToggle = FirstPage.AddToggle("Silent aim", false, function(Value)
@@ -166,9 +196,8 @@ local FirstLabel = FirstPage.AddLabel("HBE Settings")
 local FirstToggle = FirstPage.AddToggle("HBE", false, function(Value)
 if Value == true then
     ---Settings for on
-    getgenv().Size = Vector3.new(10,10,10)
+    getgenv().Size = Vector3.new(5,5,5)
     getgenv().QTransparencyzx = .7
-    getgenv().QColourzx = Color3.fromRGB(255,255,255)
     else
         if Value == false then
         ---Settings for off
