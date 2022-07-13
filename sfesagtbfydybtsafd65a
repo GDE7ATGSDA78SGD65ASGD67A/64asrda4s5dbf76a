@@ -136,7 +136,7 @@ FOV_Circle.Filled = false
 --------------------------------------------------------------------------------
 local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))()
 
-local MainUI = UILibrary.Load("ShushHUB🟧⬛️")
+local MainUI = UILibrary.Load("ShushHUB")
 local FirstPage = MainUI.AddPage("Silent aim")
 local FirstLabel = FirstPage.AddLabel("Super silent aim")
 local FirstToggle = FirstPage.AddToggle("Silent aim", false, function(Value)
