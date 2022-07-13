@@ -137,7 +137,7 @@ FOV_Circle.Filled = false
 local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))()
 
 local MainUI = UILibrary.Load("ShushHUB")
-local FirstPage = MainUI.AddPage("GodMode")
+local FirstPage = MainUI.AddPage("LocalPlayer")
 local FirstLabel = FirstPage.AddLabel("GodMode/Invis")
 local FirstButton = FirstPage.AddButton("GOD", function()
 spawn(function()
@@ -167,6 +167,93 @@ spawn(function()
     end
 end)
 end)
+local FirstLabel = FirstPage.AddLabel("WalkSpeed/JumpPower/Gravity")
+local FirstSlider = FirstPage.AddSlider("WalkSpeed", {Min = 0, Max = 35, Def = 16}, function(Value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+end)
+local FirstSlider = FirstPage.AddSlider("JumpPower", {Min = 0, Max = 500, Def = 50}, function(Value)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+end)
+local FirstSlider = FirstPage.AddSlider("Gravity", {Min = 196, Max = 0, Def = 196}, function(Value)
+game.Workspace.Gravity = Value
+end)
+local FirstPage = MainUI.AddPage("Knife")
+local FirstButton = FirstPage.AddButton("Stab Aura", function()
+    spawn(function()
+local Player = game:GetService("Players").LocalPlayer
+local wS = game:GetService("Workspace")
+local ClosestPlayer = function()
+local Closest = nil
+local Distance = 9e9
+
+    for i, v in next, game:GetService("Players"):GetPlayers() do
+        if v.Name ~= Player.Name then
+            if wS[v.Name] and wS[v.Name]:FindFirstChild("Humanoid") and wS[v.Name]:FindFirstChild("Humanoid").Health ~= 0 then
+                local Magnitude = (Player.Character.Head.Position - wS[v.Name].Head.Position).Magnitude
+                if Magnitude < Distance then
+                    Closest = wS[v.Name]
+                    Distance = Magnitude
+                    end
+                end
+            end
+        end
+    return Closest
+end
+
+spawn(function()
+    while wait() do
+            repeat wait() until Player.Character:FindFirstChild("Head")
+            if Player:DistanceFromCharacter(ClosestPlayer().Head.Position) <= 4 then
+                Player.PlayerScripts.localknifehandler.HitCheck:Fire(ClosestPlayer())
+                wait()
+            else
+                wait()
+            end
+        end
+end)
+end)
+end)
+local FirstButton = FirstPage.AddButton("Throw Aura", function()
+    spawn(function()
+    local function randompart()
+        local hits = {
+            0,
+            1,
+            2,
+            -1,
+            -2,
+        }
+        return hits[math.random(1, #hits)]
+    end
+    while wait() do
+        pcall(function()
+            if game.Players.LocalPlayer.Backpack:FindFirstChild("Knife") then
+                for i, v in pairs(game.Players:GetPlayers()) do
+                    if v.Name == game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text then
+                        if v.Name ~= game.Players.LocalPlayer.Name then
+                            game.Players.LocalPlayer.Character.Humanoid:EquipTool(Game.Players.LocalPlayer.Backpack.Knife)
+                            wait(.3)
+                            local Target = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
+                            local x = game.Workspace[Target].HumanoidRootPart.Position.X + randompart()
+                            local y = game.Workspace[Target].HumanoidRootPart.Position.Y + randompart()
+                            local z = game.Workspace[Target].HumanoidRootPart.Position.Z + randompart()
+                            local args = {
+                                [1] = Vector3.new(x, y, z),
+                                [2] = 0,
+                                [3] = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                            }
+                            game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(unpack(args))
+                            wait(.1)
+                            game:GetService("Players").localPlayer.Character:FindFirstChildOfClass("Humanoid"):UnequipTools()
+                            wait(.6)
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+    end)
 local FirstPage = MainUI.AddPage("Silent aim")
 local FirstLabel = FirstPage.AddLabel("Super silent aim")
 local FirstToggle = FirstPage.AddToggle("Silent aim", false, function(Value)
@@ -189,17 +276,6 @@ if Value == true then
 end)
 local FirstSlider = FirstPage.AddSlider("FOV Size", {Min = 50, Max = 500, Def = 200}, function(Value)
 FOV_Circle.Radius = Value
-end)
-local FirstPage = MainUI.AddPage("LocalPlayer")
-local FirstLabel = FirstPage.AddLabel("WalkSpeed/JumpPower/Gravity")
-local FirstSlider = FirstPage.AddSlider("WalkSpeed", {Min = 0, Max = 35, Def = 16}, function(Value)
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
-end)
-local FirstSlider = FirstPage.AddSlider("JumpPower", {Min = 0, Max = 500, Def = 50}, function(Value)
-game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
-end)
-local FirstSlider = FirstPage.AddSlider("Gravity", {Min = 196, Max = 0, Def = 196}, function(Value)
-game.Workspace.Gravity = Value
 end)
 local FirstPage = MainUI.AddPage("HBE")
 
