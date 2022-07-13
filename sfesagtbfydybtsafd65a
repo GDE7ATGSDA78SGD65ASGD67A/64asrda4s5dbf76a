@@ -190,6 +190,17 @@ end)
 local FirstSlider = FirstPage.AddSlider("FOV Size", {Min = 50, Max = 500, Def = 200}, function(Value)
 FOV_Circle.Radius = Value
 end)
+local FirstPage = MainUI.AddPage("LocalPlayer")
+local FirstLabel = FirstPage.AddLabel("WalkSpeed/JumpPower/Gravity")
+local FirstSlider = FirstPage.AddSlider("WalkSpeed", {Min = 0, Max = 35, Def = 16}, function(Value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+end)
+local FirstSlider = FirstPage.AddSlider("JumpPower", {Min = 0, Max = 500, Def = 50}, function(Value)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+end)
+local FirstSlider = FirstPage.AddSlider("Gravity", {Min = 196, Max = 0, Def = 196}, function(Value)
+game.Workspace.Gravity = Value
+end)
 local FirstPage = MainUI.AddPage("HBE")
 
 local FirstLabel = FirstPage.AddLabel("HBE Settings")
