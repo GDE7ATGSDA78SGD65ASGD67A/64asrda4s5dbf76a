@@ -427,7 +427,7 @@ local FirstButton = FirstPage.AddButton("Throw Aura", function()
 end)
     end)
 local FirstPage = MainUI.AddPage("Silent aim")
-local FirstLabel = FirstPage.AddLabel("Super silent aim")
+local FirstLabel = FirstPage.AddLabel("Aim cheats")
 local FirstToggle = FirstPage.AddToggle("Silent aim", false, function(Value)
 if Value == true then
     _G.Toggle = true
