@@ -150,6 +150,164 @@ FOV_Circle.Filled = false
 local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))()
 
 local MainUI = UILibrary.Load("ShushHUB")
+local FirstPage = MainUI.AddPage("AutoFarm")
+local FirstLabel = FirstPage.AddLabel("Shush's Auto")
+local FirstButton = FirstPage.AddButton("AutoFarm", function()
+    spawn(function()
+local Player = game:GetService("Players").LocalPlayer
+local wS = game:GetService("Workspace")
+local ClosestPlayer = function()
+local Closest = nil
+local Distance = 9e9
+
+    for i, v in next, game:GetService("Players"):GetPlayers() do
+        if v.Name ~= Player.Name then
+            if wS[v.Name] and wS[v.Name]:FindFirstChild("Humanoid") and wS[v.Name]:FindFirstChild("Humanoid").Health ~= 0 then
+                local Magnitude = (Player.Character.Head.Position - wS[v.Name].Head.Position).Magnitude
+                if Magnitude < Distance then
+                    Closest = wS[v.Name]
+                    Distance = Magnitude
+                    end
+                end
+            end
+        end
+    return Closest
+end
+
+spawn(function()
+    while wait() do
+            repeat wait() until Player.Character:FindFirstChild("Head")
+            if Player:DistanceFromCharacter(ClosestPlayer().Head.Position) <= 4 then
+                Player.PlayerScripts.localknifehandler.HitCheck:Fire(ClosestPlayer())
+                wait()
+            else
+                wait()
+            end
+        end
+end)
+end)
+
+spawn(function()
+    while wait(.25) do
+        pcall(function()
+            if game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.Visible then
+                local waittime = 0.172 -- the time between teleportation. change to a higher value if anticheat gets you.
+              local PathfindingService = game:GetService("PathfindingService")
+                local Target = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
+              local target = game.Workspace[Target].HumanoidRootPart.Position
+              local path = PathfindingService:CreatePath()
+              path:ComputeAsync(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position, target)
+              local waypointz = path:GetWaypoints()
+              local folder = Instance.new("Folder", game.Workspace)
+              folder.Name = "waypoints"
+              local count = 1
+              for _, waypoint in pairs(waypointz) do
+                local part = Instance.new("Part")
+                part.Material = "Neon"
+                part.Size = Vector3.new(.1, .1, .1)
+                part.Position = waypoint.Position
+                part.Anchored = true
+                part.CanCollide = false
+                part.Parent = game.Workspace
+                part.Name = "n"..count
+                part.Transparency = 1
+                count = count + 1
+                part.Parent = folder
+              end
+              local points = folder:GetChildren()
+              local countpoints = #points
+              local value = 1
+              for _ = 1, countpoints do
+                local ts = game:GetService("TweenService")
+                local plrs = game:GetService("Players")
+                local player = game:GetService("Players").LocalPlayer
+                local tweenInfo = TweenInfo.new(waittime)
+                local t = ts:Create(player.Character.HumanoidRootPart, tweenInfo, {
+                  CFrame = CFrame.new(folder["n"..value].Position * Vector3.new(1,1.0008,1))
+                })
+                t:Play()
+                t.Completed:Connect(function()
+                end)
+                value = value + 1
+                wait(waittime + .01)
+              end
+              folder:Destroy()
+            end
+        end)
+    end
+end)
+spawn(function()
+    local function randompart()
+        local hits = {
+            0,
+            1,
+            2,
+            -1,
+            -2,
+        }
+        return hits[math.random(1, #hits)]
+    end
+    while wait() do
+        pcall(function()
+            if game.Players.LocalPlayer.Backpack:FindFirstChild("Knife") then
+                for i, v in pairs(game.Players:GetPlayers()) do
+                    if v.Name == game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text then
+                        if v.Name ~= game.Players.LocalPlayer.Name then
+                            game.Players.LocalPlayer.Character.Humanoid:EquipTool(Game.Players.LocalPlayer.Backpack.Knife)
+                            wait(.3)
+                            local Target = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
+                            local x = game.Workspace[Target].HumanoidRootPart.Position.X + randompart()
+                            local y = game.Workspace[Target].HumanoidRootPart.Position.Y + randompart()
+                            local z = game.Workspace[Target].HumanoidRootPart.Position.Z + randompart()
+                            local args = {
+                                [1] = Vector3.new(x, y, z),
+                                [2] = 0,
+                                [3] = CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                            }
+                            game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(unpack(args))
+                            wait(.1)
+                            game:GetService("Players").localPlayer.Character:FindFirstChildOfClass("Humanoid"):UnequipTools()
+                            wait(.6)
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+function Hbe()
+local T = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
+game.Workspace[T].HumanoidRootPart.Size = Vector3.new(10,10,10)
+game.Workspace[T].HumanoidRootPart.Transparency = 1
+game.Workspace[T].HumanoidRootPart.BrickColor = BrickColor.new("Really red")
+game.Workspace[T].HumanoidRootPart.Material = "Neon"
+game.Workspace[T].HumanoidRootPart.CanCollide = false
+end
+local mt = getrawmetatable(game);
+make_writeable(mt);
+local old_index = mt.__index;
+
+mt.__index = function(a, b)
+if tostring(a) == "HumanoidRootPart" then
+if tostring(b) == "Size" then
+return Vector3.new(2, 2, 1);
+end
+end
+return old_index(a, b);
+end
+spawn(function()
+    game:GetService('RunService').RenderStepped:connect(function()
+            for i,v in next, game:GetService('Players'):GetPlayers() do
+                local T = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
+                if v.Name ~= game:GetService('Players').LocalPlayer.Name and T ~= game:GetService('Players').LocalPlayer.Name and T == T then
+                    pcall(function()
+                    Hbe()
+                    end)
+                end
+            end
+    end)
+end)
+    end)
 local FirstPage = MainUI.AddPage("LocalPlayer")
 local FirstLabel = FirstPage.AddLabel("GodMode/Invis")
 local FirstButton = FirstPage.AddButton("GOD", function()
