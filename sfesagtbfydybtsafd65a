@@ -1,7 +1,8 @@
 getgenv().keyssdtfhhdg = { 
     "6eastydd86agsd",
     "8syagda86sgda8",
-    "dysagduaystgd@"
+    "dysagduaystgd@",
+    "SharedKeyForAltAndHog"
 }
 
 for i,v in pairs(getgenv().keyssdtfhhdg) do
