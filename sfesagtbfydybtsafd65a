@@ -484,6 +484,13 @@ end)
 end)
 end)
 
+local FirstPage = MainUI.AddPage("Promo Page")
+local FirstLabel = FirstPage.AddLabel("Welcome to the promo page")
+local FirstLabel = FirstPage.AddLabel("You can pay me to do promos on my script")
+local FirstLabel = FirstPage.AddLabel("The promo today is from")
+local FirstLabel = FirstPage.AddLabel("Lunargames_#6652")
+local FirstLabel = FirstPage.AddLabel("Contact them on discord for custom synapse themes")
+
 game:GetService("UserInputService").InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 and _G.Toggle == true then
         
