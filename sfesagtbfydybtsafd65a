@@ -1,4 +1,16 @@
-local old = getrenv().gcinfo
+getgenv().keyssdtfhhdg = { 
+    "6eastydd86agsd",
+    "8syagda86sgda8"
+}
+
+for i,v in pairs(getgenv().keyssdtfhhdg) do
+if getgenv().key == v then
+    getgenv().Whitelisted090 = true
+end
+end
+
+if getgenv().Whitelisted090 == true then
+    local old = getrenv().gcinfo
 getrenv().gcinfo = function(...)
     return wait(9e9)
 end
@@ -414,3 +426,4 @@ end
 end
 end)
 end)
+    end
