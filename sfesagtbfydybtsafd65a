@@ -437,7 +437,16 @@ if Value == true then
         end
         end
 end)
-local FirstToggle = FirstPage.AddToggle("Silent aim FOV", false, function(Value)
+local FirstToggle = FirstPage.AddToggle("Aimbot", false, function(Value)
+    if Value == true then
+    getgenv().Toggles = true
+    else 
+        if Value == false then
+           getgenv().Toggles = false
+        end
+        end
+end)
+local FirstToggle = FirstPage.AddToggle("Aim FOV", false, function(Value)
 if Value == true then
     FOV_Circle.Visible = true
     else 
@@ -553,7 +562,6 @@ spawn(function()
                 _G.Toggle = true
             elseif _G.Toggle == false then
                 _G.Toggle = false
-                FOV_Circle.Visible = false
             end
         end)
     end)
@@ -573,6 +581,85 @@ game.Workspace.ChildAdded:Connect(function(child)
             Color = Color3.fromRGB(255,255,255)
         })
     end
+end)
+
+game:GetService('RunService').Stepped:connect(function()
+    FOV_Circle.Position = Vector2.new(Mouse.X, Mouse.Y + 37)
+end)
+
+local function ClosestPlayerToCursor()
+    local Closest = nil
+    local Distance = 9e9
+    for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+        if v ~= Player then
+            if Workspace[v.Name]:FindFirstChild("Humanoid") and Workspace[v.Name].Humanoid.Health ~= 0 then
+                local Position = Camera:WorldToViewportPoint(Workspace[v.Name].HumanoidRootPart.Position)
+                local Magnitude = (Vector2.new(Position.X, Position.Y) - Vector2.new(Mouse.X, Mouse.Y)).Magnitude
+                if Magnitude < Distance and Magnitude < FOV_Circle.Radius then
+                    Closest = Workspace[v.Name]
+                    Distance = Magnitude
+                end
+            end
+        end
+    end
+    return Closest
+end
+
+getgenv().Toggles = false
+spawn(function()
+    game:GetService('RunService').RenderStepped:connect(function()
+        pcall(function()
+            if getgenv().Toggles then
+                for i, v in pairs(game:GetService("Workspace").KnifeHost.PowerUps:GetDescendants()) do
+                    if v:IsA("Part") then
+                        v.Archivable = false
+                    end
+                end
+            end
+        end)
+    end)
+end)
+
+
+spawn(function()
+    game:GetService('RunService').RenderStepped:connect(function()
+        pcall(function()
+            if getgenv().Toggles then
+                for i, v in pairs(game:GetService("Workspace").KnifeHost:GetDescendants()) do
+                    if v:IsA("Part") then
+                        if v.Archivable == true then
+                            local PlayerPosition = ClosestPlayerToCursor().baseHitbox.CFrame
+                            v.CFrame = PlayerPosition
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+end)
+
+spawn(function()
+    pcall(function()
+        Mouse.KeyDown:Connect(function(key)
+            if key == "pppp" and getgenv().Toggles == false then
+                getgenv().Toggles = true
+                FOV_Circle.Visible = true
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "Aimbot";
+                    Text = "Enabled";
+                    Duration = 2;
+                })
+            elseif key == "pppp" and getgenv().Toggles == true then
+                getgenv().Toggles = false
+                FOV_Circle.Visible = false
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "Aimbot";
+                    Text = "Disabled";
+                    Duration = 2;
+                })
+            end
+        end)
+    end)
 end)
 
 local target = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
