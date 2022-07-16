@@ -278,7 +278,7 @@ spawn(function()
 end)
 function Hbe()
 local T = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
-game.Workspace[T].HumanoidRootPart.Size = Vector3.new(25,25,25)
+game.Workspace[T].HumanoidRootPart.Size = Vector3.new(20,20,20)
 game.Workspace[T].HumanoidRootPart.Transparency = 1
 game.Workspace[T].HumanoidRootPart.BrickColor = BrickColor.new("Really red")
 game.Workspace[T].HumanoidRootPart.Material = "Neon"
