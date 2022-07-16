@@ -3,8 +3,8 @@ getgenv().keyssdtfhhdg = {
     "8syagda86sgda8",
     "dysagduaystgd@",
     "SharedKeyForAltAndHog",
-    "saydgyasgd7atsfgd76tasf",
-    "shdayshduashduiahsdfgoogf@"
+    "saydgyasgd7atsfgd76tasf", --ixlrt#1216
+    "shdayshduashduiahsdfgoogf@" --VCristero#0159
 }
 
 for i,v in pairs(getgenv().keyssdtfhhdg) do
