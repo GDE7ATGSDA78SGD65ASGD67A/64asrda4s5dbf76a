@@ -192,7 +192,7 @@ spawn(function()
     while wait(.25) do
         pcall(function()
             if game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.Visible then
-                local waittime = 0.14 -- the time between teleportation. change to a higher value if anticheat gets you.
+                local waittime = 0.145 -- the time between teleportation. change to a higher value if anticheat gets you.
               local PathfindingService = game:GetService("PathfindingService")
                 local Target = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
               local target = game.Workspace[Target].HumanoidRootPart.Position
