@@ -385,7 +385,7 @@ local Distance = 9e9
 end
 
 spawn(function()
-    while wait(.6) do
+    while wait(.7) do
             repeat wait() until Player.Character:FindFirstChild("Head")
             if Player:DistanceFromCharacter(ClosestPlayer().Head.Position) <= 6.5 then
                 Player.PlayerScripts.localknifehandler.HitCheck:Fire(ClosestPlayer())
