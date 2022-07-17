@@ -785,6 +785,7 @@ game.Workspace[v.Name].HumanoidRootPart.CanCollide = false
 local target = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
 if v.Name == target then
 game.Workspace[v.Name].HumanoidRootPart.Color = QColourzxo
+wait()
 end
 end
 end
